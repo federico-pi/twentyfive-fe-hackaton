@@ -16,7 +16,7 @@ const red = '#d04376';
 const green = '#52f091';
 const blue = '#04a6ff';
 const lime = '#00ddc6';
-const bg = '#212121';
+const bg = '#071121';
 
 const dataMatrix = [
   [11975, 5871, 8916, 2868],
