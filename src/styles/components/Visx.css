@@ -1,0 +1,14 @@
+.chords {
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+svg {
+  margin: 1rem 0;
+  cursor: pointer;
+}
+.deets {
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+}
