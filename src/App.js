@@ -1,15 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { FormLabel, List, Radio, Stack } from '@mui/material';
-import { FormControl } from '@mui/material';
+import { List, Radio, Stack } from '@mui/material';
 import { common } from '@mui/material/colors';
 import Container from '@mui/material/Container';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import RadioGroup from '@mui/material/FormGroup';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import './styles/App.css';
@@ -57,9 +53,9 @@ function capitalizeFirstLetter(label) {
 }
 
 function App() {
-  const [filtersStatus, setFiltersStatus] = useState([true, true, true]);
   const [value, setValue] = useState('General opinion');
   const [selectedLegend, setSelectedLegend] = useState(mainLegend);
+  const [graph, setGraph] = useState('/all_filtered.png');
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -67,45 +63,24 @@ function App() {
     switch (event.target.value) {
       case 'Neutral opinion':
         setSelectedLegend(neutralLegend);
+        setGraph('/neut_filtered.png');
         break;
       case 'Negative opinion':
         setSelectedLegend(negativeLegend);
+        setGraph('/neg_filtered.png');
         break;
       case 'Positive opinion':
         setSelectedLegend(positiveLegend);
+        setGraph('/pos_filtered.png');
         break;
       default:
         setSelectedLegend(mainLegend);
+        setGraph('/all_filtered.png');
         break;
     }
   };
 
   // const handle
-
-  const handleFilters = (t) => {
-    switch (t.target.id) {
-      case 'Positive opinion':
-        return setFiltersStatus((prevState) => [
-          !prevState[0],
-          prevState[1],
-          prevState[2],
-        ]);
-      case 'Negative opinion':
-        return setFiltersStatus((prevState) => [
-          prevState[0],
-          !prevState[1],
-          prevState[2],
-        ]);
-      case 'Neutral opinion':
-        return setFiltersStatus((prevState) => [
-          prevState[0],
-          prevState[1],
-          !prevState[2],
-        ]);
-      default:
-        return;
-    }
-  };
 
   // useEffect(() => console.log('filterStatus:', filtersStatus), [filtersStatus]);
 
@@ -194,7 +169,7 @@ function App() {
                 <div height={200} width={200} style={{ alignSelf: 'center' }}>
                   {/* <TGraph /> */}
                   <img
-                    src={'/generic.png'}
+                    src={graph}
                     alt={'generic'}
                     width={'100%'}
                     height={'100%'}
