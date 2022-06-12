@@ -1,23 +1,17 @@
 import { useEffect, useState } from 'react';
 
-import { CenterFocusStrong } from '@mui/icons-material';
-import { List } from '@mui/material';
+import { List, Radio } from '@mui/material';
 import { FormControl } from '@mui/material';
 import { common } from '@mui/material/colors';
 import Container from '@mui/material/Container';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
+import RadioGroup from '@mui/material/FormGroup';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
-import { Box, height } from '@mui/system';
-
-// import GraphViewer from './components/GraphViewer';
-import { TGraph } from './components/TGraph';
-import { Visx } from './components/Visx';
-
+import { Box } from '@mui/system';
 import './styles/App.css';
 import './styles/index.css';
 
@@ -27,25 +21,47 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   textAlign: 'center',
   color: theme.palette.text.primary,
+  borderRadius: '16px',
 }));
 
-const legendas = [
-  {
-    label: 'Climate change #1',
-    color: 'green',
-  },
-  {
-    label: 'Climate change #2',
-    color: 'yellow',
-  },
-  {
-    label: 'Climate change #3',
-    color: 'orange',
-  },
+const mainLegend = [
+  { label: 'Fight fossil fuel crisis', color: 'purple' },
+  { label: 'Future of energy', color: 'orange' },
+  { label: 'Disillusioned', color: 'green' },
 ];
 
+const negativeLegend = [
+  { label: 'Disillusioned', color: 'orange' },
+  { label: 'Gas prices', color: 'purple' },
+  { label: 'Future of energy', color: 'green' },
+  { label: 'President Biden', color: 'blue' },
+];
+
+const positiveLegend = [
+  { label: 'Global carbon action', color: 'purple' },
+  { label: 'World environment', color: 'orange' },
+  { label: 'Gas prices', color: 'blue' },
+  { label: 'Future of energy', color: 'red' },
+  { label: 'Future', color: 'green' },
+];
+
+const neutralLegend = [
+  { label: 'Good feature', color: 'blue' },
+  { label: 'Fight fossil fuel crisis', color: 'purple' },
+  { label: 'Disillusioned', color: 'green' },
+  { label: 'Better environment', color: 'orange' },
+];
+
+function capitalizeFirstLetter(label) {
+  return label[0].toUpperCase() + label.slice(1);
+}
+
 function App() {
-  const [filtersStatus, setFiltersStatus] = useState([false, true, false]);
+  const [filtersStatus, setFiltersStatus] = useState([true, true, true]);
+
+  useEffect(() => {}, filtersStatus);
+
+  // const handle
 
   const handleFilters = (t) => {
     switch (t.target.id) {
@@ -72,7 +88,7 @@ function App() {
     }
   };
 
-  useEffect(() => console.log('filterStatus:', filtersStatus), [filtersStatus]);
+  // useEffect(() => console.log('filterStatus:', filtersStatus), [filtersStatus]);
 
   return (
     <div className="App">
@@ -82,71 +98,70 @@ function App() {
           sx={{
             fontWeight: 700,
             fontFamily: 'Quicksand, sans-serif',
-            letterSpacing: '.2rem',
+            // letterSpacing: '.2rem',
             color: common.white,
             textDecoration: 'none',
             textAlign: 'center',
-            mt: 4,
-            padding: 2,
+            paddingTop: 4,
           }}
         >
           Climate Change Mapping
         </Typography>
         <Grid container spacing={2} pt={6}>
-          <Grid item xs={3}>
-            <Item sx={{ height: '100%' }}>
-              <Typography
-                variant="h5"
-                sx={{
-                  fontWeight: 700,
-                  fontFamily: 'Quicksand, sans-serif',
-                  letterSpacing: '.2rem',
-                  color: common.white,
-                  textDecoration: 'none',
-                  mb: 3,
-                }}
-              >
-                Legenda
-              </Typography>
-              <List
-                sx={{
-                  px: 2,
-                }}
-              >
-                {legendas.map((legenda, index) => (
-                  <Box
-                    key={index}
+          <Grid item xs={3} style={{ maxHeight: 500 }}>
+            {/* <Item sx={{ height: '100%' }}> */}
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: 700,
+                fontFamily: 'Quicksand, sans-serif',
+                letterSpacing: '.2rem',
+                color: common.white,
+                textDecoration: 'none',
+                mb: 3,
+              }}
+            >
+              Legenda
+            </Typography>
+            <List
+              sx={{
+                px: 2,
+              }}
+            >
+              {mainLegend.map((legenda, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    mb: 3,
+                  }}
+                >
+                  <Paper
+                    elevation={1}
                     sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      mb: 3,
+                      width: '30px',
+                      height: '20px',
+                      mr: 1.5,
+                      backgroundColor: legenda.color,
+                    }}
+                  />
+                  <Typography
+                    variant="p"
+                    sx={{
+                      fontWeight: 500,
+                      fontFamily: 'Quicksand, sans-serif',
+                      letterSpacing: '.1rem',
+                      fontSize: '1rem',
+                      color: common.white,
                     }}
                   >
-                    <Paper
-                      elevation={1}
-                      sx={{
-                        width: '30px',
-                        height: '20px',
-                        mr: 1.5,
-                        backgroundColor: legenda.color,
-                      }}
-                    />
-                    <Typography
-                      variant="p"
-                      sx={{
-                        fontWeight: 500,
-                        fontFamily: 'Quicksand, sans-serif',
-                        letterSpacing: '.1rem',
-                        fontSize: '1rem',
-                        color: common.white,
-                      }}
-                    >
-                      - {legenda.label}
-                    </Typography>
-                  </Box>
-                ))}
-              </List>
-            </Item>
+                    - {capitalizeFirstLetter(legenda.label)}
+                  </Typography>
+                </Box>
+              ))}
+            </List>
+            {/* </Item> */}
           </Grid>
           <Grid item xs={6}>
             <Item sx={{ height: '100%' }}>
@@ -157,20 +172,28 @@ function App() {
                 }}
               >
                 {/* <GraphViewer></GraphViewer> */}
-                <div height={200} width={200}>
-                  <TGraph />
+                <div height={200} width={200} style={{ alignSelf: 'center' }}>
+                  {/* <TGraph /> */}
+                  <img
+                    src={'/generic.png'}
+                    alt={'generic'}
+                    width={'100%'}
+                    height={'100%'}
+                  />
                 </div>
               </Box>
             </Item>
           </Grid>
           <Grid item xs={3}>
-            <Item sx={{ height: '100%' }}>
+            <div style={{ paddingLeft: '40px' }}>
+              {/* <Item sx={{ height: '100%' }}> */}
               <Typography
                 variant="h5"
                 sx={{
                   fontWeight: 700,
                   fontFamily: 'Quicksand, sans-serif',
                   letterSpacing: '.2rem',
+                  ml: 2,
                   color: common.white,
                   textDecoration: 'none',
                   mb: 3,
@@ -178,22 +201,32 @@ function App() {
               >
                 Filters
               </Typography>
-
-              <FormGroup
-                sx={{
-                  fontFamily: 'Quicksand, sans-serif',
-                  px: 2,
-                }}
-              >
-                <FormControl>
+              <FormControl>
+                <RadioGroup>
                   <FormControlLabel
-                    control={
-                      <Switch
-                        checked={filtersStatus[0]}
-                        onChange={handleFilters}
-                        id={`Positive opinion`}
-                      />
+                    control={<Radio />}
+                    value="General opinion"
+                    label={
+                      <Typography
+                        variant="p"
+                        sx={{
+                          fontWeight: 500,
+                          fontSize: '1rem',
+                          fontFamily: 'Quicksand, sans-serif',
+                          letterSpacing: '.1rem',
+                          color: common.white,
+                        }}
+                      >
+                        General opinion
+                      </Typography>
                     }
+                    sx={{
+                      mb: 2,
+                    }}
+                  />
+                  <FormControlLabel
+                    control={<Radio />}
+                    value={'Positive opinion'}
                     label={
                       <Typography
                         variant="p"
@@ -213,40 +246,8 @@ function App() {
                     }}
                   />
                   <FormControlLabel
-                    control={
-                      <Switch
-                        checked={filtersStatus[1]}
-                        onChange={handleFilters}
-                        id={`Negative opinion`}
-                      />
-                    }
-                    label={
-                      <Typography
-                        variant="p"
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: '1rem',
-                          fontFamily: 'Quicksand, sans-serif',
-                          letterSpacing: '.1rem',
-                          color: common.white,
-                        }}
-                      >
-                        Negative opinion
-                      </Typography>
-                    }
-                    sx={{
-                      fontFamily: 'Quicksand, sans-serif',
-                      mb: 2,
-                    }}
-                  />
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={filtersStatus[2]}
-                        onChange={handleFilters}
-                        id={`Neutral opinion`}
-                      />
-                    }
+                    control={<Radio />}
+                    value={'Neutral opinion'}
                     label={
                       <Typography
                         variant="p"
@@ -262,13 +263,34 @@ function App() {
                       </Typography>
                     }
                     sx={{
-                      fontFamily: 'Quicksand, sans-serif',
                       mb: 2,
                     }}
                   />
-                </FormControl>
-              </FormGroup>
-            </Item>
+                  <FormControlLabel
+                    control={<Radio />}
+                    value={'Negative opinion'}
+                    label={
+                      <Typography
+                        variant="p"
+                        sx={{
+                          fontWeight: 500,
+                          fontSize: '1rem',
+                          fontFamily: 'Quicksand, sans-serif',
+                          letterSpacing: '.1rem',
+                          color: common.white,
+                        }}
+                      >
+                        Negative opinion
+                      </Typography>
+                    }
+                    sx={{
+                      mb: 2,
+                    }}
+                  />
+                </RadioGroup>
+              </FormControl>
+              {/* </Item> */}
+            </div>
           </Grid>
         </Grid>
       </Container>
