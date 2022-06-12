@@ -157,7 +157,9 @@ function App() {
                 }}
               >
                 {/* <GraphViewer></GraphViewer> */}
-                <TGraph height={200} width={200} />
+                <div height={200} width={200}>
+                  <TGraph />
+                </div>
               </Box>
             </Item>
           </Grid>

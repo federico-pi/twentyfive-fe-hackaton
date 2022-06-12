@@ -41,8 +41,8 @@ root.render(
           backgroundColor: 'background.default',
         }}
       >
-        <TGraph />
-        {/* <Router>
+        {/* <TGraph /> */}
+        <Router>
           <Header />
           <Routes>
             <Route path="/" element={<App />} />
@@ -50,7 +50,7 @@ root.render(
             <Route path="popular-topics" element={<PopularTopics />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </Router> */}
+        </Router>
       </Box>
     </ThemeProvider>
   </React.StrictMode>

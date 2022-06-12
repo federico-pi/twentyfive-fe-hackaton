@@ -33,6 +33,9 @@ export function TGraph() {
       nodeRelSize={4}
       linkCurveRotation={5}
       linkWidth={0.5}
+      width={550}
+      height={500}
+      scale={1.5}
     />
   );
 }
