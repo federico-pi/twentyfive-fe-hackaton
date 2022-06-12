@@ -6,25 +6,16 @@ export function TGraph() {
     const ids = LatMockData.nodes.map((node) => node.id);
     const links = [];
 
-    for (const id in ids) {
-      console.log(ids);
-      // for (const id2 in ids) {
-      //   // console.log(links);
-      //   links.push({
-      //     source: id,
-      //     target: id2,
-      //   });
-      //   // console.log(links);
-      //   break;
-      // }
-    }
+    ids.forEach((id) => {
+      const reversedIds = ids.reverse();
 
-    for (const link in links) {
-      console.log(link);
-    }
-
-    // console.log(links.length);
-    // console.log(LatMockData.nodes.length)
+      reversedIds.forEach((rev) => {
+        links.push({
+          source: id,
+          target: rev,
+        });
+      });
+    });
 
     return links;
   };
@@ -35,7 +26,13 @@ export function TGraph() {
         nodes: LatMockData.nodes,
         links: randomizeLinks(),
       }}
-      // nodeId={}
+      // nodeAutoColorBy='green'
+      linkAutoColorBy="blue"
+      linkCurvature={2}
+      linkOpacity={0.1}
+      nodeRelSize={4}
+      linkCurveRotation={5}
+      linkWidth={0.5}
     />
   );
 }
