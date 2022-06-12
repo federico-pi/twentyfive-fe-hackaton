@@ -59,10 +59,25 @@ function capitalizeFirstLetter(label) {
 function App() {
   const [filtersStatus, setFiltersStatus] = useState([true, true, true]);
   const [value, setValue] = useState('General opinion');
+  const [selectedLegend, setSelectedLegend] = useState(mainLegend);
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     setValue(event.target.value);
+
+    switch (event.target.value) {
+      case 'Neutral opinion':
+        setSelectedLegend(neutralLegend);
+        break;
+      case 'Negative opinion':
+        setSelectedLegend(negativeLegend);
+        break;
+      case 'Positive opinion':
+        setSelectedLegend(positiveLegend);
+        break;
+      default:
+        setSelectedLegend(mainLegend);
+        break;
+    }
   };
 
   // const handle
@@ -132,7 +147,7 @@ function App() {
                 px: 2,
               }}
             >
-              {mainLegend.map((legenda, index) => (
+              {selectedLegend.map((legenda, index) => (
                 <Box
                   key={index}
                   sx={{
