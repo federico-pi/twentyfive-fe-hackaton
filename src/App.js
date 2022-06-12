@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { List, Radio } from '@mui/material';
+import { FormLabel, List, Radio, Stack } from '@mui/material';
 import { FormControl } from '@mui/material';
 import { common } from '@mui/material/colors';
 import Container from '@mui/material/Container';
@@ -58,8 +58,12 @@ function capitalizeFirstLetter(label) {
 
 function App() {
   const [filtersStatus, setFiltersStatus] = useState([true, true, true]);
+  const [value, setValue] = useState('General opinion');
 
-  useEffect(() => {}, filtersStatus);
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    setValue(event.target.value);
+  };
 
   // const handle
 
@@ -201,95 +205,93 @@ function App() {
               >
                 Filters
               </Typography>
-              <FormControl>
-                <RadioGroup>
-                  <FormControlLabel
-                    control={<Radio />}
+              <Stack>
+                <div>
+                  <Radio
+                    checked={value === 'General opinion'}
+                    onChange={handleChange}
                     value="General opinion"
-                    label={
-                      <Typography
-                        variant="p"
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: '1rem',
-                          fontFamily: 'Quicksand, sans-serif',
-                          letterSpacing: '.1rem',
-                          color: common.white,
-                        }}
-                      >
-                        General opinion
-                      </Typography>
-                    }
+                    aria-labelledby="general_label"
+                  ></Radio>
+
+                  <Typography
+                    variant="p"
+                    id="general_label"
                     sx={{
-                      mb: 2,
+                      fontWeight: 500,
+                      fontSize: '1rem',
+                      fontFamily: 'Quicksand, sans-serif',
+                      letterSpacing: '.1rem',
+                      color: common.white,
                     }}
-                  />
-                  <FormControlLabel
-                    control={<Radio />}
-                    value={'Positive opinion'}
-                    label={
-                      <Typography
-                        variant="p"
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: '1rem',
-                          fontFamily: 'Quicksand, sans-serif',
-                          letterSpacing: '.1rem',
-                          color: common.white,
-                        }}
-                      >
-                        Positive opinion
-                      </Typography>
-                    }
+                  >
+                    General opinion
+                  </Typography>
+                </div>
+
+                <div>
+                  <Radio
+                    checked={value === 'Neutral opinion'}
+                    onChange={handleChange}
+                    value="Neutral opinion"
+                  ></Radio>
+
+                  <Typography
+                    variant="p"
                     sx={{
-                      mb: 2,
+                      fontWeight: 500,
+                      fontSize: '1rem',
+                      fontFamily: 'Quicksand, sans-serif',
+                      letterSpacing: '.1rem',
+                      color: common.white,
                     }}
-                  />
-                  <FormControlLabel
-                    control={<Radio />}
-                    value={'Neutral opinion'}
-                    label={
-                      <Typography
-                        variant="p"
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: '1rem',
-                          fontFamily: 'Quicksand, sans-serif',
-                          letterSpacing: '.1rem',
-                          color: common.white,
-                        }}
-                      >
-                        Neutral opinion
-                      </Typography>
-                    }
+                  >
+                    Neutral opinion
+                  </Typography>
+                </div>
+
+                <div>
+                  <Radio
+                    checked={value === 'Negative opinion'}
+                    onChange={handleChange}
+                    value="Negative opinion"
+                  ></Radio>
+
+                  <Typography
+                    variant="p"
                     sx={{
-                      mb: 2,
+                      fontWeight: 500,
+                      fontSize: '1rem',
+                      fontFamily: 'Quicksand, sans-serif',
+                      letterSpacing: '.1rem',
+                      color: common.white,
                     }}
-                  />
-                  <FormControlLabel
-                    control={<Radio />}
-                    value={'Negative opinion'}
-                    label={
-                      <Typography
-                        variant="p"
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: '1rem',
-                          fontFamily: 'Quicksand, sans-serif',
-                          letterSpacing: '.1rem',
-                          color: common.white,
-                        }}
-                      >
-                        Negative opinion
-                      </Typography>
-                    }
+                  >
+                    Negative opinion
+                  </Typography>
+                </div>
+
+                <div>
+                  <Radio
+                    checked={value === 'Positive opinion'}
+                    onChange={handleChange}
+                    value="Positive opinion"
+                  ></Radio>
+
+                  <Typography
+                    variant="p"
                     sx={{
-                      mb: 2,
+                      fontWeight: 500,
+                      fontSize: '1rem',
+                      fontFamily: 'Quicksand, sans-serif',
+                      letterSpacing: '.1rem',
+                      color: common.white,
                     }}
-                  />
-                </RadioGroup>
-              </FormControl>
-              {/* </Item> */}
+                  >
+                    Positive opinion
+                  </Typography>
+                </div>
+              </Stack>
             </div>
           </Grid>
         </Grid>
