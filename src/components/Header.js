@@ -97,7 +97,7 @@ const Header = () => {
     <AppBar
       position="static"
       sx={{
-        backgroundColor: 'background.accent',
+        backgroundColor: 'background.header',
       }}
     >
       <Container maxWidth="xl">
@@ -110,7 +110,7 @@ const Header = () => {
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'Quicksand, sans-serif',
-              fontWeight: 700,
+              fontWeight: 800,
               letterSpacing: '.1rem',
               color: '#fff',
               textDecoration: 'none',
@@ -192,6 +192,7 @@ const Header = () => {
                   my: 2,
                   px: 2,
                   color: 'white',
+                  fontSize: '1em',
                   fontWeight: '600',
                   display: 'block',
                   fontFamily: 'Quicksand, sans-serif',

@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import App from './App';
 import Header from './components/Header';
 
+import { TGraph } from './components/TGraph';
 import Instructions from './pages/Instructions';
 import NotFound from './pages/NotFound';
 import PopularTopics from './pages/PopularTopics';
@@ -23,7 +24,8 @@ const theme = createTheme({
     },
     background: {
       default: '#071121',
-      accent: '#1A2332',
+      accent: '#151E2D',
+      header: '#151E2D',
     },
   },
 });
@@ -39,7 +41,8 @@ root.render(
           backgroundColor: 'background.default',
         }}
       >
-        <Router>
+        <TGraph />
+        {/* <Router>
           <Header />
           <Routes>
             <Route path="/" element={<App />} />
@@ -47,7 +50,7 @@ root.render(
             <Route path="popular-topics" element={<PopularTopics />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </Router>
+        </Router> */}
       </Box>
     </ThemeProvider>
   </React.StrictMode>
