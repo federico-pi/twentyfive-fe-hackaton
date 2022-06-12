@@ -192,6 +192,7 @@ const Header = () => {
                   my: 2,
                   px: 2,
                   color: 'white',
+                  fontWeight: '600',
                   display: 'block',
                   fontFamily: 'Quicksand, sans-serif',
                 }}
