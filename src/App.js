@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { List, Radio } from '@mui/material';
 import { FormControl } from '@mui/material';
@@ -9,7 +9,6 @@ import RadioGroup from '@mui/material/FormGroup';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import './styles/App.css';
@@ -52,43 +51,29 @@ const neutralLegend = [
   { label: 'Better environment', color: 'orange' },
 ];
 
-function capitalizeFirstLetter(label) {
-  return label[0].toUpperCase() + label.slice(1);
-}
-
 function App() {
-  const [filtersStatus, setFiltersStatus] = useState([true, true, true]);
+  const [graph, setGraph] = useState('general');
+  const [legend, setLegend] = useState(mainLegend);
 
-  useEffect(() => {}, filtersStatus);
+  const handleGraph = (g) => {
+    setGraph(g);
 
-  // const handle
-
-  const handleFilters = (t) => {
-    switch (t.target.id) {
-      case 'Positive opinion':
-        return setFiltersStatus((prevState) => [
-          !prevState[0],
-          prevState[1],
-          prevState[2],
-        ]);
-      case 'Negative opinion':
-        return setFiltersStatus((prevState) => [
-          prevState[0],
-          !prevState[1],
-          prevState[2],
-        ]);
-      case 'Neutral opinion':
-        return setFiltersStatus((prevState) => [
-          prevState[0],
-          prevState[1],
-          !prevState[2],
-        ]);
+    switch (g) {
+      case 'general':
       default:
-        return;
+        return setLegend(mainLegend);
+      case 'positive':
+        return setLegend(positiveLegend);
+      case 'neutral':
+        return setLegend(neutralLegend);
+      case 'negative':
+        return setLegend(negativeLegend);
     }
   };
 
-  // useEffect(() => console.log('filterStatus:', filtersStatus), [filtersStatus]);
+  function capitalizeFirstLetter(label) {
+    return label[0].toUpperCase() + label.slice(1);
+  }
 
   return (
     <div className="App">
@@ -128,7 +113,7 @@ function App() {
                 px: 2,
               }}
             >
-              {mainLegend.map((legenda, index) => (
+              {legend.map((legenda, index) => (
                 <Box
                   key={index}
                   sx={{
@@ -171,15 +156,39 @@ function App() {
                   justifyContent: 'center',
                 }}
               >
-                {/* <GraphViewer></GraphViewer> */}
                 <div height={200} width={200} style={{ alignSelf: 'center' }}>
-                  {/* <TGraph /> */}
-                  <img
-                    src={'/generic.png'}
-                    alt={'generic'}
-                    width={'100%'}
-                    height={'100%'}
-                  />
+                  {graph === 'general' && (
+                    <img
+                      src={'/general.png'}
+                      alt={'general'}
+                      width={'100%'}
+                      height={'100%'}
+                    />
+                  )}
+                  {graph === 'positive' && (
+                    <img
+                      src={'/positive.png'}
+                      alt={'positive'}
+                      width={'100%'}
+                      height={'100%'}
+                    />
+                  )}
+                  {graph === 'neutral' && (
+                    <img
+                      src={'/neutral.png'}
+                      alt={'neutral'}
+                      width={'100%'}
+                      height={'100%'}
+                    />
+                  )}
+                  {graph === 'negative' && (
+                    <img
+                      src={'/negative.png'}
+                      alt={'negative'}
+                      width={'100%'}
+                      height={'100%'}
+                    />
+                  )}
                 </div>
               </Box>
             </Item>
@@ -205,6 +214,7 @@ function App() {
                 <RadioGroup>
                   <FormControlLabel
                     control={<Radio />}
+                    checked={true}
                     value="General opinion"
                     label={
                       <Typography
@@ -226,7 +236,7 @@ function App() {
                   />
                   <FormControlLabel
                     control={<Radio />}
-                    value={'Positive opinion'}
+                    value="Positive opinion"
                     label={
                       <Typography
                         variant="p"
