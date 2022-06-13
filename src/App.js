@@ -146,7 +146,7 @@ function App() {
                       color: common.white,
                     }}
                   >
-                    - {capitalizeFirstLetter(legenda.label)}
+                    - {legenda.label}
                   </Typography>
                 </Box>
               ))}
