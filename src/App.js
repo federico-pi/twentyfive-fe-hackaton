@@ -1,11 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { List, Radio } from '@mui/material';
-import { FormControl } from '@mui/material';
+import { List, Radio, Stack } from '@mui/material';
 import { common } from '@mui/material/colors';
 import Container from '@mui/material/Container';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import RadioGroup from '@mui/material/FormGroup';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
@@ -52,28 +49,36 @@ const neutralLegend = [
 ];
 
 function App() {
-  const [graph, setGraph] = useState('general');
-  const [legend, setLegend] = useState(mainLegend);
+  const [value, setValue] = useState('General opinion');
+  const [selectedLegend, setSelectedLegend] = useState(mainLegend);
+  const [graph, setGraph] = useState('/all_filtered.png');
 
-  const handleGraph = (g) => {
-    setGraph(g);
+  const handleChange = (event) => {
+    setValue(event.target.value);
 
-    switch (g) {
-      case 'general':
+    switch (event.target.value) {
+      case 'Neutral opinion':
+        setSelectedLegend(neutralLegend);
+        setGraph('/neut_filtered.png');
+        break;
+      case 'Negative opinion':
+        setSelectedLegend(negativeLegend);
+        setGraph('/neg_filtered.png');
+        break;
+      case 'Positive opinion':
+        setSelectedLegend(positiveLegend);
+        setGraph('/pos_filtered.png');
+        break;
       default:
-        return setLegend(mainLegend);
-      case 'positive':
-        return setLegend(positiveLegend);
-      case 'neutral':
-        return setLegend(neutralLegend);
-      case 'negative':
-        return setLegend(negativeLegend);
+        setSelectedLegend(mainLegend);
+        setGraph('/all_filtered.png');
+        break;
     }
   };
 
-  function capitalizeFirstLetter(label) {
-    return label[0].toUpperCase() + label.slice(1);
-  }
+  // const handle
+
+  // useEffect(() => console.log('filterStatus:', filtersStatus), [filtersStatus]);
 
   return (
     <div className="App">
@@ -113,7 +118,7 @@ function App() {
                 px: 2,
               }}
             >
-              {legend.map((legenda, index) => (
+              {selectedLegend.map((legenda, index) => (
                 <Box
                   key={index}
                   sx={{
@@ -157,38 +162,13 @@ function App() {
                 }}
               >
                 <div height={200} width={200} style={{ alignSelf: 'center' }}>
-                  {graph === 'general' && (
-                    <img
-                      src={'/general.png'}
-                      alt={'general'}
-                      width={'100%'}
-                      height={'100%'}
-                    />
-                  )}
-                  {graph === 'positive' && (
-                    <img
-                      src={'/positive.png'}
-                      alt={'positive'}
-                      width={'100%'}
-                      height={'100%'}
-                    />
-                  )}
-                  {graph === 'neutral' && (
-                    <img
-                      src={'/neutral.png'}
-                      alt={'neutral'}
-                      width={'100%'}
-                      height={'100%'}
-                    />
-                  )}
-                  {graph === 'negative' && (
-                    <img
-                      src={'/negative.png'}
-                      alt={'negative'}
-                      width={'100%'}
-                      height={'100%'}
-                    />
-                  )}
+                  {/* <TGraph /> */}
+                  <img
+                    src={graph}
+                    alt={'generic'}
+                    width={'100%'}
+                    height={'100%'}
+                  />
                 </div>
               </Box>
             </Item>
@@ -210,96 +190,93 @@ function App() {
               >
                 Filters
               </Typography>
-              <FormControl>
-                <RadioGroup>
-                  <FormControlLabel
-                    control={<Radio />}
-                    checked={true}
+              <Stack>
+                <div>
+                  <Radio
+                    checked={value === 'General opinion'}
+                    onChange={handleChange}
                     value="General opinion"
-                    label={
-                      <Typography
-                        variant="p"
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: '1rem',
-                          fontFamily: 'Quicksand, sans-serif',
-                          letterSpacing: '.1rem',
-                          color: common.white,
-                        }}
-                      >
-                        General opinion
-                      </Typography>
-                    }
+                    aria-labelledby="general_label"
+                  ></Radio>
+
+                  <Typography
+                    variant="p"
+                    id="general_label"
                     sx={{
-                      mb: 2,
+                      fontWeight: 500,
+                      fontSize: '1rem',
+                      fontFamily: 'Quicksand, sans-serif',
+                      letterSpacing: '.1rem',
+                      color: common.white,
                     }}
-                  />
-                  <FormControlLabel
-                    control={<Radio />}
+                  >
+                    General opinion
+                  </Typography>
+                </div>
+
+                <div>
+                  <Radio
+                    checked={value === 'Neutral opinion'}
+                    onChange={handleChange}
+                    value="Neutral opinion"
+                  ></Radio>
+
+                  <Typography
+                    variant="p"
+                    sx={{
+                      fontWeight: 500,
+                      fontSize: '1rem',
+                      fontFamily: 'Quicksand, sans-serif',
+                      letterSpacing: '.1rem',
+                      color: common.white,
+                    }}
+                  >
+                    Neutral opinion
+                  </Typography>
+                </div>
+
+                <div>
+                  <Radio
+                    checked={value === 'Negative opinion'}
+                    onChange={handleChange}
+                    value="Negative opinion"
+                  ></Radio>
+
+                  <Typography
+                    variant="p"
+                    sx={{
+                      fontWeight: 500,
+                      fontSize: '1rem',
+                      fontFamily: 'Quicksand, sans-serif',
+                      letterSpacing: '.1rem',
+                      color: common.white,
+                    }}
+                  >
+                    Negative opinion
+                  </Typography>
+                </div>
+
+                <div>
+                  <Radio
+                    checked={value === 'Positive opinion'}
+                    onChange={handleChange}
                     value="Positive opinion"
-                    label={
-                      <Typography
-                        variant="p"
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: '1rem',
-                          fontFamily: 'Quicksand, sans-serif',
-                          letterSpacing: '.1rem',
-                          color: common.white,
-                        }}
-                      >
-                        Positive opinion
-                      </Typography>
-                    }
+                  ></Radio>
+
+                  <Typography
+                    variant="p"
                     sx={{
-                      mb: 2,
+                      fontWeight: 500,
+                      fontSize: '1rem',
+                      fontFamily: 'Quicksand, sans-serif',
+                      letterSpacing: '.1rem',
+                      color: common.white,
                     }}
-                  />
-                  <FormControlLabel
-                    control={<Radio />}
-                    value={'Neutral opinion'}
-                    label={
-                      <Typography
-                        variant="p"
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: '1rem',
-                          fontFamily: 'Quicksand, sans-serif',
-                          letterSpacing: '.1rem',
-                          color: common.white,
-                        }}
-                      >
-                        Neutral opinion
-                      </Typography>
-                    }
-                    sx={{
-                      mb: 2,
-                    }}
-                  />
-                  <FormControlLabel
-                    control={<Radio />}
-                    value={'Negative opinion'}
-                    label={
-                      <Typography
-                        variant="p"
-                        sx={{
-                          fontWeight: 500,
-                          fontSize: '1rem',
-                          fontFamily: 'Quicksand, sans-serif',
-                          letterSpacing: '.1rem',
-                          color: common.white,
-                        }}
-                      >
-                        Negative opinion
-                      </Typography>
-                    }
-                    sx={{
-                      mb: 2,
-                    }}
-                  />
-                </RadioGroup>
-              </FormControl>
-              {/* </Item> */}
+                  >
+                    Positive opinion
+                  </Typography>
+                </div>
+              </Stack>
             </div>
           </Grid>
         </Grid>
